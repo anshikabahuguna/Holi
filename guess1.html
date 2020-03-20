@@ -1,0 +1,172 @@
+<html>
+<head>
+	<title></title>
+	
+	<style type="text/css">
+		body{
+	margin: 0;
+	padding:0;
+	font-family: "comic sans";
+	text-align: center;
+	font-size: 20px;
+	 height: 600px;
+  background-color: skyblue;
+  background-image: linear-gradient(green,yellow ); 
+ /*background-repeat: ;*/
+}
+body h1{
+	color:black;
+
+}
+.main-div{
+	visibility: hidden;
+}
+.guess-box{
+	padding:5px;
+	font-size: 20px;
+	border-radius: 4px;
+}
+.check-btn{
+  background-color: green;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.wrong{
+	background-color: indianred;
+	margin:25px 500px;
+	border-radius: 2px;
+}
+.success{
+	background-color: green;
+	padding:5px 20px;
+	margin:25px 500px;
+	border-radius: 5px;
+	
+}
+.start-btn{
+	background-color: greenyellow;
+    border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  display: inline-block;
+  font-size: 20px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.reset-btn{
+	background-color: skyblue;
+  border: none;
+  color: white;
+  padding: 15px 30px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+	</style>
+
+
+
+</head>
+<body>
+	<h1 style="color: coral">GUESS THE NUMBER:</h1>
+	<p style="color: antiquewhite; font-family: cursive">We will select a random no. betweenw 1 and 100.<br>
+		you will get 10 turns to guess it right.<br>
+		And we will tell you after every guess that if your guess was high or low.<br>
+		BEST OF LUCK!!!!<br>
+	</p>
+	<button type="button" id="start" class="start-btn" onclick="start()">Start</button>
+	<button type="button" id="reset" class="reset-btn" onclick="window.location.reload()">Reload</button>
+
+	<div id="main-div" class="main-div">
+		<input type="text" id="guess-box" class="guess-box" placeholder="Enter here"><br>
+		<button type="button" id="check" class="check-btn" onclick="checkGuess()">Check</button>
+		<div id="all-guesses">Your Guesses:-</div>
+		<div id="high-or-low" class=""></div>
+		<img id="image" class="img">
+        <h1>-----------------------------------------------</h1>
+        <p style="font-family: fantasy;color: papayawhip">Please Take care of You & Your Family<br>
+        Avoid Travel & Crowded Place as much as Possible<br>
+        Wash Your Hands Frequently.....</p>
+	</div>
+	<script type="text/javascript">
+		var btn_start=document.getElementById("start");
+		var reset=document.getElementById("reset");
+		var check=document.getElementById("check");
+		var main_div=document.getElementById("main-div");
+		var guess_box=document.getElementById("guess-box");
+		var all_guesses=document.getElementById("all-guesses");
+		var high_or_low=document.getElementById("high-or-low");
+		var random_number=Math.floor(Math.random()*100)+1;
+		var count_guess=1;
+		function start(){
+			main_div.style.visibility="visible";
+		}
+		function checkGuess(){
+			var your_guess=Number(guess_box.value);
+			if (count_guess<=10){
+				if (your_guess==0 ){
+					high_or_low.textContent="PLEASE ENTER SOMETHING";
+                    high_or_low.classList.add("wrong");
+
+				}
+				else if(Number.isInteger(your_guess)==false){
+					high_or_low.textContent="YOUR ENTRY SHOULD BE A NUMBER BW 1 TO 100";
+                    high_or_low.classList.add("wrong");
+
+				}
+				else if(your_guess<random_number){
+					all_guesses.textContent+=your_guess+" ";
+					high_or_low.textContent="Your guess is low!";
+                    high_or_low.classList.add("wrong");
+                    count_guess++;
+                    guess_box.value="";
+				}
+				else if(your_guess>random_number){
+					all_guesses.textContent+=your_guess+" ";
+					high_or_low.textContent="Your guess is high!";
+                    high_or_low.classList.add("wrong");
+                    count_guess++;
+                    guess_box.value="";
+
+				}
+				else{
+					all_guesses.textContent+=your_guess+" ";
+					high_or_low.textContent="CONGRATS! "+your_guess+" is the right Answer!";
+                    high_or_low.classList.add("success");
+                    count_guess++;
+                    guess_box.value="";
+                     check.disable = true;
+			guess_box.disabled = true;
+                    
+
+				}
+			}
+			else{
+				all_guesses.textContent+=your_guess+" ";
+					high_or_low.textContent="SORRY YOUR LIMIT EXCEEDS! GAME OVER :(";
+                    high_or_low.classList.add("wrong");
+                  check.disable = true;
+			guess_box.disabled = true;
+
+                    
+
+			}
+		}
+		</script>
+</body>
+</html>
